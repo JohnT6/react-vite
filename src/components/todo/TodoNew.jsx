@@ -1,0 +1,10 @@
+const TodoNew = () => {
+    return (
+        <div className="todo-form">
+            <input type="text" className="todo-input" placeholder="Enter your task" />
+            <button className="todo-btn">Add</button>
+        </div>
+    )
+}
+
+export default TodoNew;
