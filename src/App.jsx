@@ -11,11 +11,17 @@ function App() {
     name: "John",
     age: 22
   }
+  // truyền Function từ cha sang con
+  const addNewFunction = (name) => {
+    alert(`Call me ${name}`);
+  }
   //Cách cha truyên Props => Key = {value}
   return (
     <div className="todo-container">
       <h1 className="todo-title">Todo List</h1>
-      <TodoNew />
+      <TodoNew
+        addNewFunction={addNewFunction}
+      />
       <TodoData
         name={name}
         age={age}
