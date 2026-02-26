@@ -5,11 +5,22 @@ import reactLogo from "./assets/react.svg"
 
 
 function App() {
+  const name = "John";
+  const age = 22;
+  const data = {
+    name: "John",
+    age: 22
+  }
+  //Cách cha truyên Props => Key = {value}
   return (
     <div className="todo-container">
       <h1 className="todo-title">Todo List</h1>
       <TodoNew />
-      <TodoData />
+      <TodoData
+        name={name}
+        age={age}
+        data={data}
+      />
       <div className="todo-image">
         <img src={reactLogo} className="logo" />
       </div>
