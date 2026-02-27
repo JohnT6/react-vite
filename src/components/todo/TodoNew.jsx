@@ -21,7 +21,7 @@ const TodoNew = (props) => {
 
     }
     return (
-        <div className="todo-container">
+        <div className="todo-form-inner">
             <div className="todo-form">
                 <input type="text" className="todo-input" placeholder="Enter your task" value={valueInput} onChange={(event) => {
                     handleOnChange(event.target.value)
