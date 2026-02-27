@@ -19,8 +19,14 @@ function App() {
   ])
 
   // truyền Function từ cha sang con
+  // function cha đc gọi nhận giá trị mới và thêm vào todoList và gửi lại cho TodoData
   const addNewFunction = (name) => {
-    alert(`Call me ${name}`);
+    console.log("Check todoList hien tai:", todoList);
+    const newTodo = {
+      id: 3,
+      name: name
+    }
+    setTodoList([...todoList, newTodo]);
   }
   //Cách cha truyên Props => Key = {value}
   return (

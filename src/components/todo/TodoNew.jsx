@@ -1,15 +1,20 @@
 import { useState } from "react";
 
-const TodoNew = ({ addNewFunction }) => {
+const TodoNew = (props) => {
+
+    const { addNewFunction } = props
 
     // useState Hook (getter, setter)
+    // Tạo giá trị mặc định của valueInput là "Thêm task" trong useState
     const [valueInput, setValueInput] = useState("Thêm task")
 
+    // Gọi hàm và đưa giá trị mới vào và nó thực hiện logic ở component cha
     const handleClick = () => {
-        console.log(`>>> Check value ${valueInput}`);
+        addNewFunction(valueInput)
 
     }
 
+    //sửa cái giá trị của valueInput bằng dữ liệu đã nhập trong input bằng set
     const handleOnChange = (value) => {
         setValueInput(value)
 
