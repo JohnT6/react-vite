@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const TodoNew = (props) => {
 
-    const { addNewFunction } = props
+    const { addNewTodo } = props
 
     // useState Hook (getter, setter)
     // Tạo giá trị mặc định của valueInput là "Thêm task" trong useState
@@ -10,7 +10,7 @@ const TodoNew = (props) => {
 
     // Gọi hàm và đưa giá trị mới vào và nó thực hiện logic ở component cha
     const handleClick = () => {
-        addNewFunction(valueInput)
+        addNewTodo(valueInput)
         // Khi đã truyền giá trị mới vào hàm xử lý thì gán lại thành rỗng vì input đang dùng value của valueInput
         setValueInput("")
     }
@@ -23,7 +23,9 @@ const TodoNew = (props) => {
     return (
         <div className="todo-container">
             <div className="todo-form">
-                <input type="text" className="todo-input" placeholder="Enter your task" value={valueInput} onChange={(event) => { handleOnChange(event.target.value) }} />
+                <input type="text" className="todo-input" placeholder="Enter your task" value={valueInput} onChange={(event) => {
+                    handleOnChange(event.target.value)
+                }} />
                 <button className="todo-btn" onClick={handleClick}>Add</button>
             </div>
             <p>My input: {valueInput} </p>
