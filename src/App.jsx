@@ -13,6 +13,11 @@ function App() {
     age: 22
   }
 
+  // Hàm lấy số ngẫu nhiên
+  function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   const [todoList, setTodoList] = useState([
     { id: 1, name: "learning react" },
     { id: 2, name: "Nấu cơm" }
@@ -20,10 +25,11 @@ function App() {
 
   // truyền Function từ cha sang con
   // function cha đc gọi nhận giá trị mới và thêm vào todoList và gửi lại cho TodoData
+  // Đặt id là số ngẫu nhiên từ 1 tơi 1tr
   const addNewFunction = (name) => {
     console.log("Check todoList hien tai:", todoList);
     const newTodo = {
-      id: 3,
+      id: randomIntFromInterval(1, 1000000),
       name: name
     }
     setTodoList([...todoList, newTodo]);
