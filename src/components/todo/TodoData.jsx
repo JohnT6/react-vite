@@ -6,13 +6,16 @@ const TodoData = (props) => {
     //  data: { name: "john", age: 22}
     //}
     console.log(">>>>>>Check props", props);
-    const { name, age, data } = props
+    const { todoList } = props
     return (
         <div className="todo-data">
-            <p>My name is {name}</p>
-            <p>learning react</p>
-            <p>learning react</p>
-            <p>{JSON.stringify(props.todoList)}</p>
+            <ul>
+                {todoList.map(item =>
+                    <li key={item.id} className="todo-item">
+                        <p>{item.name}</p>
+                        <button className="todo-btn-delete">Delete</button>
+                    </li>)}
+            </ul>
         </div>
     )
 }

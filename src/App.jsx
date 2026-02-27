@@ -6,12 +6,12 @@ import { useState } from "react";
 
 
 function App() {
-  const name = "John";
-  const age = 22;
-  const data = {
-    name: "John",
-    age: 22
-  }
+  // const name = "John";
+  // const age = 22;
+  // const data = {
+  //   name: "John",
+  //   age: 22
+  // }
 
   // Hàm lấy số ngẫu nhiên
   function randomIntFromInterval(min, max) { // min and max included 
@@ -42,9 +42,7 @@ function App() {
         addNewFunction={addNewFunction}
       />
       <TodoData
-        name={name}
-        age={age}
-        data={data}
+
         todoList={todoList}
       />
       <div className="todo-image">
