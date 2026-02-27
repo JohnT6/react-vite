@@ -2,6 +2,7 @@ import "./components/todo/todo.css"
 import TodoData from "./components/todo/TodoData"
 import TodoNew from "./components/todo/TodoNew"
 import reactLogo from "./assets/react.svg"
+import { useState } from "react";
 
 
 function App() {
@@ -11,6 +12,12 @@ function App() {
     name: "John",
     age: 22
   }
+
+  const [todoList, setTodoList] = useState([
+    { id: 1, name: "learning react" },
+    { id: 2, name: "Nấu cơm" }
+  ])
+
   // truyền Function từ cha sang con
   const addNewFunction = (name) => {
     alert(`Call me ${name}`);
@@ -26,6 +33,7 @@ function App() {
         name={name}
         age={age}
         data={data}
+        todoList={todoList}
       />
       <div className="todo-image">
         <img src={reactLogo} className="logo" />

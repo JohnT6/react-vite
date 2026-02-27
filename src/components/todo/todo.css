@@ -12,6 +12,10 @@
     color: transparent;
 }
 
+.todo-container {
+  display: flex;
+}
+
 .todo-form {
     display: flex;
 }
