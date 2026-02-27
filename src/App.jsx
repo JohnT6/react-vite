@@ -19,8 +19,8 @@ function App() {
   }
 
   const [todoList, setTodoList] = useState([
-    { id: 1, name: "learning react" },
-    { id: 2, name: "Nấu cơm" }
+    // { id: 1, name: "learning react" },
+    // { id: 2, name: "Nấu cơm" }
   ])
 
   // truyền Function từ cha sang con
