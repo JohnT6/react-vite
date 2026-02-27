@@ -3,6 +3,8 @@ import TodoData from "./components/todo/TodoData"
 import TodoNew from "./components/todo/TodoNew"
 import reactLogo from "./assets/react.svg"
 import { useState } from "react";
+import Header from "./components/layout/header";
+import Footer from "./components/layout/footer";
 
 
 function App() {
@@ -47,19 +49,23 @@ function App() {
 
   //Cách cha truyên Props => Key = {value}
   return (
-    <div className="todo-container">
-      <h1 className="todo-title">Todo List</h1>
-      <TodoNew
-        addNewTodo={addNewTodo}
-      />
-      {/* Nếu todo ko có dữ liệu thì hiển thị logo còn có thì hiểu thị task*/}
-      {!todoList.length ? <div className="todo-image">
-        <img src={reactLogo} className="logo" />
-      </div> : <TodoData
-        todoList={todoList}
-        deleteTodo={deleteTodo}
-      />}
-    </div>
+    <>
+      <Header />
+      <div className="todo-container">
+        <h1 className="todo-title">Todo List</h1>
+        <TodoNew
+          addNewTodo={addNewTodo}
+        />
+        {/* Nếu todo ko có dữ liệu thì hiển thị logo còn có thì hiểu thị task*/}
+        {!todoList.length ? <div className="todo-image">
+          <img src={reactLogo} className="logo" />
+        </div> : <TodoData
+          todoList={todoList}
+          deleteTodo={deleteTodo}
+        />}
+      </div>
+      <Footer />
+    </>
 
   )
 }
