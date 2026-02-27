@@ -41,13 +41,12 @@ function App() {
       <TodoNew
         addNewFunction={addNewFunction}
       />
-      <TodoData
-
-        todoList={todoList}
-      />
-      <div className="todo-image">
+      // Nếu todo ko có dữ liệu thì hiển thị logo còn có thì hiểu thị task
+      {!todoList.length ? <div className="todo-image">
         <img src={reactLogo} className="logo" />
-      </div>
+      </div> : <TodoData
+        todoList={todoList}
+      />}
     </div>
 
   )
