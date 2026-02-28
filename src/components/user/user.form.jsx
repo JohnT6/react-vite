@@ -3,7 +3,9 @@ import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
 
-const UserForm = () => {
+const UserForm = (props) => {
+    const { loadUser } = props;
+
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +21,8 @@ const UserForm = () => {
                 message: "Create user",
                 description: "Tạo user thành công"
             })
-            setIsModalOpen(false);
+            resetAndCloseModal();
+            await loadUser();
         } else {
             notification.error({
                 message: "Error create user",
@@ -29,6 +32,13 @@ const UserForm = () => {
 
     }
 
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false);
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setPhone("");
+    }
 
     return (
         <div className="user-form" style={{ margin: "20px 0" }}>
@@ -37,7 +47,7 @@ const UserForm = () => {
                 <Button type="primary" onClick={() => { setIsModalOpen(true); }}>Create User</Button>
             </div>
 
-            <Modal title="Create User" open={isModalOpen} onOk={handleSubmitBtn} onCancel={() => { setIsModalOpen(false); }} maskClosable={false} okText={"CREATE"}>
+            <Modal title="Create User" open={isModalOpen} onOk={handleSubmitBtn} onCancel={resetAndCloseModal} maskClosable={false} okText={"CREATE"}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                     <div>
                         <span>Full name</span>
