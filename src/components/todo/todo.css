@@ -70,14 +70,22 @@
     margin-top: 10px;
 }
 
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  gap: 10px;
+}
+
 .todo-item {
   display: flex;
-}
+  justify-content: space-between;
+  float: none;
+} 
 
 .todo-btn-delete {
   border: none;
   background: transparent;
-  margin-left: auto;
   cursor: pointer;
 }
 
