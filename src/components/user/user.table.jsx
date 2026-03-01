@@ -1,8 +1,11 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { notification, Popconfirm, Table } from 'antd';
 import UpdateUserModal from './user.update.modal';
 import { useState } from 'react';
 import ViewUserDetail from './view.uer.detail';
+// cách 2 sử dụng modal delete
+// import DeleteUserModal from './user.delete.modal';
+import { deleteUserByIdApi } from '../../services/api.service';
 
 const UserTable = (props) => {
 
@@ -13,6 +16,27 @@ const UserTable = (props) => {
     const [dataUpdate, setDataUpdate] = useState(null);
     const [dataDetail, setDataDetail] = useState(null)
     const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+    // cách 2 sử dụng modal delete
+    // const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+    // const [dataDelete, setDataDelete] = useState(null);
+
+    const handleDeleteUSer = async (id) => {
+        const res = await deleteUserByIdApi(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete a user",
+                description: "Xóa user thành công"
+            })
+            await loadUser();
+        } else {
+            notification.error({
+                message: "Error delete a user",
+                description: JSON.stringify(res.message)
+            })
+        }
+
+    }
 
     const columns = [
         {
@@ -49,7 +73,16 @@ const UserTable = (props) => {
                             setIsModalUpdateOpen(true)
                         }}
                     />
-                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    <Popconfirm
+                        title="Xóa người dùng này"
+                        description="Chắc chắn xóa người dùng này?"
+                        onConfirm={() => { handleDeleteUSer(record._id) }}
+                        okText="Yes"
+                        cancelText="No"
+                        placement='left'
+                    >
+                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    </Popconfirm>
                 </div>
             ),
         },
@@ -76,6 +109,14 @@ const UserTable = (props) => {
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
             />
+            {/* Cách khác dùng component modal */}
+            {/* <DeleteUserModal
+                isModalDeleteOpen={isModalDeleteOpen}
+                setIsModalDeleteOpen={setIsModalDeleteOpen}
+                dataDelete={dataDelete}
+                setDataDelete={setDataDelete}
+                loadUser={loadUser}
+            /> */}
         </>
     )
 }
