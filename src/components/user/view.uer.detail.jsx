@@ -1,8 +1,9 @@
-import { Drawer } from 'antd';
+import { Button, Drawer, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { handleUploadFile, updateUserAvatarAPI } from '../../services/api.service';
 
 const ViewUserDetail = (props) => {
-    const { isDetailOpen, setIsDetailOpen, dataDetail, setDataDetail } = props;
+    const { isDetailOpen, setIsDetailOpen, dataDetail, setDataDetail, loadUser } = props;
 
     const [selectFile, setSelectFile] = useState();
     const [preview, setPreview] = useState();
@@ -29,6 +30,45 @@ const ViewUserDetail = (props) => {
         if (file) {
             setSelectFile(file)
             setPreview(URL.createObjectURL(file))
+        }
+
+    }
+
+    const handleUpdateUserAvatar = async () => {
+        // step 1: upload file
+        // upload file lên backend lưu trữ
+        const resUpload = await handleUploadFile(selectFile, "avatar");
+        if (resUpload.data) {
+
+            // step 2: update user
+            // lưu dữ liệu của file mới upload
+            const newAvatar = resUpload.data.fileUploaded;
+            // gọi api và cập nhật lại file avatar mới upload cùng với id của user cần update avatar do dùng put nên vẫn phải gửi thêm các dữ liệu khác trong db
+            const resUpdateAvatar = await updateUserAvatarAPI(newAvatar, dataDetail._id, dataDetail.fullName, dataDetail.phone);
+            if (resUpdateAvatar.data) {
+                // Đóng modal set lại các dữ liệu đã lưu trong selecfile và preview và load lại user
+                setIsDetailOpen(false)
+                setSelectFile(null)
+                setPreview(null)
+                await loadUser();
+
+                notification.success({
+                    message: "Update user avatar",
+                    description: "Cập nhật avatar thành công"
+                })
+
+            } else {
+                notification.error({
+                    message: "Error update avatar",
+                    description: JSON.stringify(resUpdateAvatar.message)
+                })
+            }
+
+        } else {
+            notification.error({
+                message: "Error upload file",
+                description: JSON.stringify(resUpload.message)
+            })
         }
 
     }
@@ -74,12 +114,18 @@ const ViewUserDetail = (props) => {
                                 type="file" name="" id="btnUpload" hidden
                                 onChange={handleOnChangeFile}
                             />
-                            {selectFile && <div style={{
-                                width: "150px", height: "100px",
-                                border: "1px solid #ccc"
-                            }}>
-                                <img style={{ width: "100%", height: "100%", objectFit: "contain" }} src={preview} />
-                            </div>}
+                            {preview && <>
+                                <div style={{
+                                    marginTop: "10px",
+                                    marginBottom: "15px",
+                                    width: "150px", height: "100px",
+                                }}>
+                                    <img style={{ width: "100%", height: "100%", objectFit: "contain" }} src={preview} />
+                                </div>
+                                <Button type='primary'
+                                    onClick={() => handleUpdateUserAvatar()}
+                                >Save</Button>
+                            </>}
                         </div>
                     </div>
                 </> : <>
