@@ -8,7 +8,6 @@ const UserPage = () => {
     const [dataUsers, setDataUsers] = useState([])
 
     useEffect(() => {
-        console.log(">>> check render 111");
         loadUser();
 
     }, [])
