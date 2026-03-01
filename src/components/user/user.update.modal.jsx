@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { createUserAPI } from "../../services/api.service";
+import { updateUserAPI } from "../../services/api.service";
 import { Input, Modal, notification } from "antd";
 
 const UpdateUserModal = (props) => {
 
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
 
     const [id, setId] = useState("");
     const [fullName, setFullName] = useState("");
@@ -19,8 +19,8 @@ const UpdateUserModal = (props) => {
         }
     }, [dataUpdate])
 
-    const handleSubmitBtn = async () => {
-        const res = await createUserAPI(fullName, email, password, phone);
+    const handleSaveBtn = async () => {
+        const res = await updateUserAPI(id, fullName, phone);
         if (res.data) {
             notification.success({
                 message: "Update a user",
@@ -49,7 +49,7 @@ const UpdateUserModal = (props) => {
 
 
     return (
-        <Modal title="Update a User" open={isModalUpdateOpen} onOk={handleSubmitBtn} onCancel={resetAndCloseModal} maskClosable={false} okText={"SAVE"}>
+        <Modal title="Update a User" open={isModalUpdateOpen} onOk={handleSaveBtn} onCancel={resetAndCloseModal} maskClosable={false} okText={"SAVE"}>
             <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 <div>
                     <span>Id</span>
