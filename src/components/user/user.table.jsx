@@ -9,7 +9,7 @@ import { deleteUserByIdApi } from '../../services/api.service';
 
 const UserTable = (props) => {
 
-    const { dataUsers, loadUser } = props;
+    const { dataUsers, loadUser, current, pageSize, total, setCurrent, setPageSize } = props;
 
 
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
@@ -96,6 +96,13 @@ const UserTable = (props) => {
         },
     ];
 
+    const onChange = async (pagination, filters, sorter, extra) => {
+        setCurrent(pagination.current);
+        setPageSize(pagination.pageSize)
+        console.log(">> check", { pagination, filters, sorter, extra });
+
+    };
+
     return (
 
         <>
@@ -103,6 +110,16 @@ const UserTable = (props) => {
                 columns={columns}
                 dataSource={dataUsers}
                 rowKey={"_id"}
+                pagination={
+                    {
+                        current: current,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+                onChange={onChange}
+
             />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
