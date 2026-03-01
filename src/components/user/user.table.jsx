@@ -43,7 +43,7 @@ const UserTable = (props) => {
             title: "STT",
             render: (_, record, index) => {
                 return (
-                    <>{index + 1}</>
+                    <>{(index + 1) + (current - 1) * pageSize}</>
                 )
             },
         },
@@ -84,7 +84,7 @@ const UserTable = (props) => {
                     <Popconfirm
                         title="Xóa người dùng này"
                         description="Chắc chắn xóa người dùng này?"
-                        onConfirm={() => { handleDeleteUSer(record._id) }}
+                        onConfirm={async () => { await handleDeleteUSer(record._id) }}
                         okText="Yes"
                         cancelText="No"
                         placement='left'
@@ -97,8 +97,23 @@ const UserTable = (props) => {
     ];
 
     const onChange = async (pagination, filters, sorter, extra) => {
-        setCurrent(pagination.current);
-        setPageSize(pagination.pageSize)
+
+        // Nếu thay đổi trang: current
+        if (pagination && pagination.current) {
+            if (+pagination.current !== +current) {
+                setCurrent(+pagination.current);
+
+            }
+        }
+
+        // Nếu thay đổi tổng số phần tử: pageSize
+        if (pagination && pagination.pageSize) {
+            if (+pagination.pageSize !== +pageSize) {
+                setPageSize(+pagination.pageSize);
+
+            }
+        }
+        // setPageSize(pagination.pageSize)
         console.log(">> check", { pagination, filters, sorter, extra });
 
     };

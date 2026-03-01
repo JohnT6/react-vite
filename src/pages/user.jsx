@@ -10,10 +10,11 @@ const UserPage = () => {
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
 
+    // empty array => run once
+    // not empty => next value !== prev value ( nếu mới khác cũ chạy lại)
     useEffect(() => {
         loadUser();
-
-    }, [])
+    }, [current, pageSize]) // [] + condition ( nó vẫn chạy lần đầu tiên mà nó có thêm điều kiện là giá trị trong [] thay đổi thì chạy lại )
 
     const loadUser = async () => {
         const res = await fetchAllUserApi(current, pageSize);
