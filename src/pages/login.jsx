@@ -2,26 +2,30 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, notification, Row } from "antd"
 import { useForm } from "antd/es/form/Form"
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { loginUserAPI } from "../services/api.service";
+import { useState } from "react";
 
 const LoginPage = () => {
     const [form] = useForm();
     let navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const onFinish = async (values) => {
-        console.log(">>check values", values);
-        // const res = await registerUserAPI(values.fullName, values.email, values.password, values.phone);
-        // if (res.data) {
-        //     notification.success({
-        //         message: "Register success",
-        //         description: "Đăng ký người dùng thành công"
-        //     })
-        //     Navigate("/login")
-        // } else {
-        //     notification.error({
-        //         message: "Error register user",
-        //         description: JSON.stringify(res.message)
-        //     })
-        // }
+        setLoading(true);
+        const res = await loginUserAPI(values.email, values.password);
+        if (res.data) {
+            notification.success({
+                message: "Register success",
+                description: "Đăng nhập thành công"
+            })
+            navigate("/")
+        } else {
+            notification.error({
+                message: "Error login user",
+                description: JSON.stringify(res.message)
+            })
+        }
+        setLoading(false)
     }
 
     return (
@@ -66,7 +70,7 @@ const LoginPage = () => {
 
 
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Button onClick={() => form.submit()} type="primary">Register</Button>
+                            <Button loading={loading} onClick={() => form.submit()} type="primary">Register</Button>
                             <Link to={"/"}>Go to homepage <ArrowRightOutlined /></Link>
                         </div>
                         <div style={{ display: "flex", justifyContent: "center", gap: "3px", marginTop: "50px" }}>
