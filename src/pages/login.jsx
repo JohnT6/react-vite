@@ -3,12 +3,14 @@ import { Button, Col, Form, Input, notification, Row } from "antd"
 import { useForm } from "antd/es/form/Form"
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { loginUserAPI } from "../services/api.service";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../components/context/auth.context";
 
 const LoginPage = () => {
     const [form] = useForm();
     let navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { setUser } = useContext(AuthContext)
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -18,6 +20,8 @@ const LoginPage = () => {
                 message: "Register success",
                 description: "Đăng nhập thành công"
             })
+            localStorage.setItem("access_token", res.data.access_token)
+            setUser(res.data.user)
             navigate("/")
         } else {
             notification.error({
@@ -70,7 +74,7 @@ const LoginPage = () => {
 
 
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Button loading={loading} onClick={() => form.submit()} type="primary">Register</Button>
+                            <Button loading={loading} onClick={() => form.submit()} type="primary">Login</Button>
                             <Link to={"/"}>Go to homepage <ArrowRightOutlined /></Link>
                         </div>
                         <div style={{ display: "flex", justifyContent: "center", gap: "3px", marginTop: "50px" }}>
