@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, notification, Row } from "antd"
+import { Button, Col, Form, Input, message, notification, Row } from "antd"
 import { useForm } from "antd/es/form/Form"
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { loginUserAPI } from "../services/api.service";
@@ -16,10 +16,7 @@ const LoginPage = () => {
         setLoading(true);
         const res = await loginUserAPI(values.email, values.password);
         if (res.data) {
-            notification.success({
-                message: "Register success",
-                description: "Đăng nhập thành công"
-            })
+            message.success("Đăng nhập thành công")
             localStorage.setItem("access_token", res.data.access_token)
             setUser(res.data.user)
             navigate("/")
