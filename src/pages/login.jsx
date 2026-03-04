@@ -39,6 +39,7 @@ const LoginPage = () => {
                         layout="vertical"
                         onFinish={onFinish}
                         style={{ margin: "10px" }}
+                        onKeyDown={(event) => { if (event.key === "Enter") form.submit() }}
                     // onFinishFailed={onFinishFailed}
                     >
 
