@@ -70,9 +70,10 @@ const ViewBookDetail = (props) => {
                         <p>Id: {dataBookDetail._id}</p>
                         <p>Tiêu đề: {dataBookDetail.mainText}</p>
                         <p>Tác giả: {dataBookDetail.author}</p>
+                        <p>Thể loại: {dataBookDetail.category}</p>
                         <p>Giá tiền: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(dataBookDetail.price)}</p>
                         <p>Số lượng: {dataBookDetail.quantity}</p>
-                        <p>Thể loại: {dataBookDetail.category}</p>
+                        <p>Đã bán: {dataBookDetail.sold}</p>
                         <p>Avatar:</p>
                         <div style={{
                             width: "150px", height: "100px",
