@@ -1,6 +1,7 @@
 import { Button } from "antd"
 import { useState } from "react"
 import CreateBookControlComponent from "./create.book.(control-component)";
+import CreateBookUncontrolledComponent from "./create.book.(uncontrol-component)";
 
 const BookForm = (props) => {
     const { loadBook } = props;
@@ -20,7 +21,13 @@ const BookForm = (props) => {
                 <Button type="primary" onClick={() => { setIsModalOpen(true) }}>Create Book</Button>
             </div>
 
-            <CreateBookControlComponent
+            {/* <CreateBookControlComponent
+                loadBook={loadBook}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+            /> */}
+
+            <CreateBookUncontrolledComponent
                 loadBook={loadBook}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
